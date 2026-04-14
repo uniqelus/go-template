@@ -1,0 +1,2 @@
+# Enable export-subst for version file
+pkg/version/version.go export-subst
