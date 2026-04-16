@@ -9,7 +9,7 @@ type Config struct {
 
 type LogConfig struct {
 	Level       string   `yaml:"level" env:"LOG_LEVEL" env-default:"debug"`
-	OutputPaths []string `yaml:"outputPaths" env:"LOG_OUTPUT_PATHS" env-default:"stdout,logs/app.log"`
+	OutputPaths []string `yaml:"outputPaths" env:"LOG_OUTPUT_PATHS" env-default:"stdout"`
 }
 
 type HttpServerConfig struct {
