@@ -1,0 +1,7 @@
+log:
+  level: debug
+  outputPaths:
+    - stdout
+  errorOutputPaths:
+    - stderr
+    - logs/errors.log
