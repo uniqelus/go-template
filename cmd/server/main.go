@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 
 	serverapp "go-template/internal/app/server"
 	pkgconfig "go-template/pkg/config"
@@ -37,10 +40,18 @@ func main() {
 		_ = log.Sync()
 	}()
 
-	app, err := serverapp.NewApp(cfg, log)
-	if err != nil {
-		panic(err)
-	}
+	app := serverapp.NewApp(cfg, log)
 
-	_ = app
+	startCtx, startCancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer startCancel()
+
+	pkgerrors.Try(app.Start(startCtx))
+
+	<-startCtx.Done()
+	startCancel()
+
+	stopCtx, stopCancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer stopCancel()
+
+	pkgerrors.Try(app.Stop(stopCtx))
 }

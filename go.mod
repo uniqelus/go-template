@@ -3,8 +3,10 @@ module go-template
 go 1.26.2
 
 require (
+	github.com/go-chi/chi/v5 v5.2.5
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	go.uber.org/zap v1.27.1
+	golang.org/x/sync v0.20.0
 )
 
 require (
